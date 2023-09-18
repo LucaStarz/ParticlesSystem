@@ -32,6 +32,8 @@ void load_default_config(Config *config)
 
     config->min_color_r = config->min_color_g = config->min_color_b = config->min_color_a = 0;
     config->max_color_r = config->max_color_g = config->max_color_b = config->max_color_a = 255;
+    config->min_outline_color_r = config->min_outline_color_g = config->min_outline_color_b = config->min_outline_color_a = 0;
+    config->max_outline_color_r = config->max_outline_color_g = config->max_outline_color_b = config->max_outline_color_a = 255;
 
     config->begin_spawn = 50;
     config->spawn_rate = 0.2;

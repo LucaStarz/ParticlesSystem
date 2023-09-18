@@ -27,14 +27,4 @@ void desactive_node(ParticleList *list, NodeList *node);
 
 void reactive_node(ParticleList *list, Config *config);
 
-inline void show_list(ParticleList *list) {
-    NodeList *node = list->begin;
-    while (node != NULL) {
-        printf("[%p]  ", node);
-        node = node->next;
-    }
-
-    printf("\n");
-}
-
 #endif // __PARTICLES_LIST_H__
