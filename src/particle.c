@@ -23,11 +23,16 @@ void set_particle_values(Particle *particle, Config *config)
     particle->rect.y = get_random_float(config->spawn_y_min, config->spawn_y_max);
     particle->rect.w = particle->rect.h = 10.0;
 
-    particle->color.a = 255;
-    particle->color.r = particle->color.g = particle->color.b = 100;
-
-    particle->outline_color.a = 255;
-    particle->outline_color.r = particle->outline_color.g = particle->outline_color.b = 175;
-
     particle->speed_x = get_random_float(config->speed_x_min, config->speed_x_max);
+    particle->speed_y = get_random_float(config->speed_y_min, config->speed_y_max);
+
+    particle->color.r = get_random_int(config->min_color_r, config->max_color_r);
+    particle->color.g = get_random_int(config->min_color_g, config->max_color_g);
+    particle->color.b = get_random_int(config->min_color_b, config->max_color_b);
+    particle->color.a = get_random_int(config->min_color_a, config->max_color_a);
+
+    particle->outline_color.r = get_random_int(config->min_outline_color_r, config->max_outline_color_r);
+    particle->outline_color.g = get_random_int(config->min_outline_color_g, config->max_outline_color_g);
+    particle->outline_color.b = get_random_int(config->min_outline_color_b, config->max_outline_color_b);
+    particle->outline_color.a = get_random_int(config->min_outline_color_a, config->max_outline_color_a);
 }

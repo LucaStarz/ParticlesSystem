@@ -14,6 +14,11 @@ typedef struct Config {
     float speed_x_min, speed_x_max;
     float speed_y_min, speed_y_max;
 
+    uint8_t min_color_r, min_color_g, min_color_b, min_color_a;
+    uint8_t max_color_r, max_color_g, max_color_b, max_color_a;
+    uint8_t min_outline_color_r, min_outline_color_g, min_outline_color_b, min_outline_color_a;
+    uint8_t max_outline_color_r, max_outline_color_g, max_outline_color_b, max_outline_color_a;
+
 // Window configuration
     int window_width, window_height;
 

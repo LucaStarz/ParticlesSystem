@@ -24,7 +24,7 @@ System *init_system(const char *path)
         return NULL;
     }
 
-    sys->renderer = SDL_CreateRenderer(sys->window, -1, SDL_RENDERER_ACCELERATED);
+    sys->renderer = SDL_CreateRenderer(sys->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!sys->renderer) {
         destroy_system(sys);
         return NULL;
@@ -52,16 +52,17 @@ void destroy_system(System *system)
 void update_system(System *system)
 {
     SDL_RenderClear(system->renderer);
-    NodeList *node = system->list->begin;
-
     system->to_create += system->config->spawn_rate;
     for (; system->to_create>1; system->to_create--)
         reactive_node(system->list, system->config);
 
+    NodeList *node = system->list->begin;
+    size_t pos = 0;
     while (node != NULL) {
         NodeList *next = node->next;
-        if (node->active) {
+        if (pos >= system->list->last_inactive) {
             node->part->rect.x += node->part->speed_x;
+            node->part->rect.y += node->part->speed_y;
 
             SDL_SetRenderDrawColor(system->renderer, node->part->color.r, node->part->color.g, node->part->color.b, node->part->color.a);
             SDL_RenderFillRectF(system->renderer, &node->part->rect);
@@ -74,6 +75,7 @@ void update_system(System *system)
         }
 
         node = next;
+        pos += 1;
     }
 
     SDL_RenderPresent(system->renderer);

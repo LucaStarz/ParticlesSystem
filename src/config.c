@@ -30,6 +30,9 @@ void load_default_config(Config *config)
     config->speed_x_min = config->speed_y_min = -3.0;
     config->delete_x_min = config->delete_y_min = 0.0;
 
+    config->min_color_r = config->min_color_g = config->min_color_b = config->min_color_a = 0;
+    config->max_color_r = config->max_color_g = config->max_color_b = config->max_color_a = 255;
+
     config->begin_spawn = 50;
     config->spawn_rate = 0.2;
     config->FPS = 1000 / 60.0;
@@ -89,6 +92,46 @@ void load_extern_config(Config *config, const char *path)
             config->spawn_rate = read_float(config, config_file);
         } else if (string_equals(config->word1, "fps")) {
             config->FPS = 1000.0 / read_double(config, config_file);
+        } else if (string_equals(config->word1, "min_random_color")) {
+            config->min_color_r = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->min_color_g = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->min_color_b = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->min_color_a = read_int(config, config_file);
+        } else if (string_equals(config->word1, "max_random_color")) {
+            config->max_color_r = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->max_color_g = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->max_color_b = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->max_color_a = read_int(config, config_file);
+        } else if (string_equals(config->word1, "min_random_outline_color")) {
+            config->min_outline_color_r = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->min_outline_color_g = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->min_outline_color_b = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->min_outline_color_a = read_int(config, config_file);
+        } else if (string_equals(config->word1, "max_random_outline_color")) {
+            config->max_outline_color_r = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->max_outline_color_g = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->max_outline_color_b = read_int(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->max_outline_color_a = read_int(config, config_file);
+        } else if (string_equals(config->word1, "speed_x")) {
+            config->speed_x_min = read_float(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->speed_x_max = read_float(config, config_file);
+        } else if (string_equals(config->word1, "speed_y")) {
+            config->speed_y_min = read_float(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->speed_y_max = read_float(config, config_file);
         } else if (config->word1[0] != '\0') {
             printf("Unknown pconf command '%s'\n", config->word1);
             while (config->current_character != '\n' && config->current_character != -1)
@@ -97,6 +140,7 @@ void load_extern_config(Config *config, const char *path)
     }
 
     fclose(config_file);
+    printf("Successfully read extern configuration\n");
 }
 
 void try_skip_spaces(Config *config, FILE *f)

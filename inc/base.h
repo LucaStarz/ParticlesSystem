@@ -24,4 +24,8 @@ inline const float get_random_float(const float min, const float max) {
     return min + ((float)rand()) / ((float)RAND_MAX / (max - min));
 }
 
+inline const int get_random_int(const int min, const int max) {
+    return min + rand() % (max - min + 1);
+}
+
 #endif // __PARTICLES_BASE_H__

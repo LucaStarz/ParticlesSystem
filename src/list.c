@@ -11,7 +11,6 @@ NodeList *init_node_list(Config *config)
         return NULL;
     }
 
-    node->active = 1;
     node->next = node->before = NULL;
     return node;
 }
@@ -25,19 +24,13 @@ void destroy_node_list(NodeList *node)
     }
 }
 
-void reactive_node_list(NodeList *node, Config *config)
-{
-    node->active = 1;
-    set_particle_values(node->part, config);
-}
-
 ParticleList *init_list(Config *config)
 {
     ParticleList *list = malloc(sizeof(struct ParticleList));
     if (!list) return NULL;
 
     list->begin = list->end = NULL;
-    list->size = list->last_inactive = 0;
+    list->last_inactive = 0;
     for (uint64_t i=0; i<config->begin_spawn; i++)
         add_node_to_list(list, config);
 
@@ -73,15 +66,14 @@ void add_node_to_list(ParticleList *list, Config *config)
         new_node->before = list->end;
         list->end = new_node;
     }
-
-    list->size += 1;
 }
 
 void desactive_node(ParticleList *list, NodeList *node)
 {
-    node->active = 0;
-    if (list->begin == node)
+    if (list->begin == node) {
+        list->last_inactive += 1;
         return;
+    }
     else if (list->end == node) {
         list->end = node->before;
         list->end->next = NULL;
@@ -104,7 +96,7 @@ void desactive_node(ParticleList *list, NodeList *node)
 void reactive_node(ParticleList *list, Config *config)
 {
     if (list->last_inactive > 0) {
-        reactive_node_list(list->begin, config);
+        set_particle_values(list->begin->part, config);
         if (list->begin != list->end) {
             NodeList *old = list->begin;
             old->before = list->end;

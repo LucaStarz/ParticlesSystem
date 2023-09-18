@@ -1,6 +1,14 @@
-window_size:    720 405
-spawn_x:        100 600
-spawn_y:        50 350
-begin_spawn:    2
-spawn_rate:     0.02
-fps:            30
+window_size:                1280 720
+spawn_x:                    630 650
+spawn_y:                    350 370
+begin_spawn:                20
+spawn_rate:                 10
+fps:                        60
+
+speed_x:                    -3.7 4
+speed_y:                    -2.25 3.1
+
+min_random_color:           0 10 20 30
+max_random_color:           235 245 255 255
+min_random_outline_color:   30 20 10 0
+max_random_outline_color:   255 255 245 235
