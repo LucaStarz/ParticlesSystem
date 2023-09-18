@@ -1,0 +1,16 @@
+part_width:         0.7 2
+part_height:        4 20
+spawn_x:            0 1280
+spawn_y:            -10 0
+window_size:        1280 720
+delete_x:           0 1280
+delete_y:           -20 720
+speed_x:            0 0
+speed_y:            5 10
+begin_spawn:        20
+spawn_rate:         7
+
+min_random_color:   83 102 142 255
+max_random_color:   63 85 132 255
+min_random_outline_color:   83 102 142 255
+max_random_outline_color:   63 85 132 255

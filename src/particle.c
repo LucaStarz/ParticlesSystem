@@ -21,7 +21,8 @@ void set_particle_values(Particle *particle, Config *config)
 {
     particle->rect.x = get_random_float(config->spawn_x_min, config->spawn_x_max);
     particle->rect.y = get_random_float(config->spawn_y_min, config->spawn_y_max);
-    particle->rect.w = particle->rect.h = 10.0;
+    particle->rect.w = get_random_float(config->width_min, config->width_max);
+    particle->rect.h = get_random_float(config->height_min, config->height_max);
 
     particle->speed_x = get_random_float(config->speed_x_min, config->speed_x_max);
     particle->speed_y = get_random_float(config->speed_y_min, config->speed_y_max);

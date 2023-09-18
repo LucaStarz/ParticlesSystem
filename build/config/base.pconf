@@ -4,6 +4,8 @@ spawn_y:                    350 370
 begin_spawn:                20
 spawn_rate:                 10
 fps:                        60
+part_width:                 1 15
+part_height:                1 15
 
 speed_x:                    -3.7 4
 speed_y:                    -2.25 3.1

@@ -13,6 +13,8 @@ typedef struct Config {
     float spawn_y_min, spawn_y_max;
     float speed_x_min, speed_x_max;
     float speed_y_min, speed_y_max;
+    float width_min, width_max;
+    float height_min, height_max;
 
     uint8_t min_color_r, min_color_g, min_color_b, min_color_a;
     uint8_t max_color_r, max_color_g, max_color_b, max_color_a;

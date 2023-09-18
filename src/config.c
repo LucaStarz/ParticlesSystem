@@ -25,10 +25,13 @@ void load_default_config(Config *config)
     printf("Loading default configuration\n");
     config->delete_x_max = config->spawn_x_max = config->window_width = 1280;
     config->delete_y_max = config->spawn_y_max = config->window_height = 720;
-    config->spawn_x_min = config->spawn_y_min = 0.0;
-    config->speed_x_max = config->speed_y_max = 3.0;
-    config->speed_x_min = config->speed_y_min = -3.0;
-    config->delete_x_min = config->delete_y_min = 0.0;
+    config->spawn_x_min = config->spawn_y_min = 0.0f;
+    config->speed_x_max = config->speed_y_max = 3.0f;
+    config->speed_x_min = config->speed_y_min = -3.0f;
+    config->delete_x_min = config->delete_y_min = 0.0f;
+
+    config->width_min = config->height_min = 10.0f;
+    config->width_max = config->height_max = 10.0f;
 
     config->min_color_r = config->min_color_g = config->min_color_b = config->min_color_a = 0;
     config->max_color_r = config->max_color_g = config->max_color_b = config->max_color_a = 255;
@@ -36,7 +39,7 @@ void load_default_config(Config *config)
     config->max_outline_color_r = config->max_outline_color_g = config->max_outline_color_b = config->max_outline_color_a = 255;
 
     config->begin_spawn = 50;
-    config->spawn_rate = 0.2;
+    config->spawn_rate = 0.2f;
     config->FPS = 1000 / 60.0;
 }
 
@@ -68,7 +71,7 @@ void load_extern_config(Config *config, const char *path)
     while (config->current_character != -1) {
         size1 = 0;
         try_skip_spaces(config, config_file);
-        while (config->current_character != ':' && config->current_character != '\0') {
+        while (config->current_character != ':' && config->current_character != -1) {
             config->word1[size1++] = config->current_character;
             config->current_character = fgetc(config_file);
         }
@@ -134,6 +137,22 @@ void load_extern_config(Config *config, const char *path)
             config->speed_y_min = read_float(config, config_file);
             try_skip_spaces(config, config_file);
             config->speed_y_max = read_float(config, config_file);
+        } else if (string_equals(config->word1, "part_width")) {
+            config->width_min = read_float(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->width_max = read_float(config, config_file);
+        } else if (string_equals(config->word1, "part_height")) {
+            config->height_min = read_float(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->height_max = read_float(config, config_file);
+        } else if (string_equals(config->word1, "delete_x")) {
+            config->delete_x_min = read_float(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->delete_x_max = read_float(config, config_file);   
+        } else if (string_equals(config->word1, "delete_y")) {
+            config->delete_y_min = read_float(config, config_file);
+            try_skip_spaces(config, config_file);
+            config->delete_y_max = read_float(config, config_file);   
         } else if (config->word1[0] != '\0') {
             printf("Unknown pconf command '%s'\n", config->word1);
             while (config->current_character != '\n' && config->current_character != -1)
