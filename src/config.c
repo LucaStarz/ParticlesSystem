@@ -52,7 +52,7 @@ void load_extern_config(Config *config, const char *path)
             return;
     }
 
-    FILE *config_file = fopen64(path, "rb");
+    FILE *config_file = fopen(path, "rb");
     if (!config_file) {
         printf("Failed to open file '%s'\n", path);
         return;
